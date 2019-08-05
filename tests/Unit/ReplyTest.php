@@ -19,4 +19,14 @@ class ReplyTest extends TestCase
 
         $this->assertInstanceOf('App\User', $reply->owner);
     }
+
+
+    /** @test */
+    public function a_thread_has_a_creator() 
+    {
+        $thread = factory('App\Thread')->create();
+
+        $this->assertInstanceOf('App\User', $thread->creator);
+    }
+
 }
