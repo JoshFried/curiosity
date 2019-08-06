@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::post('/threads/{thread}/replies', 'ReplyController@store');
-Route::resource('threads', 'ThreadController');
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store');
+Route::get('threads', 'ThreadController@index');
+Route::get('threads/create', 'ThreadController@create');
+Route::get('threads/{channel}/{thread}', 'ThreadController@show');
+Route::post('threads', 'ThreadCOntroller@store');
+// Route::resource('threads', 'ThreadController');

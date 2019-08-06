@@ -26,7 +26,7 @@ class CreateThreadsTest extends TestCase
         $this->signIn();
 
         //when we hit the enpoint to create a new thread
-        $thread = make('App\Thread');
+        $thread = create('App\Thread');
 
         $this->post('/threads' , $thread->toArray());
 
