@@ -9,15 +9,21 @@
 
                 <div class="card-header">
                     <div class="level">
+
                         <span class="flex">
-                        <a href="/profiles/{{ $thread->creator->name }}">{{ $thread->creator->name }}</a> posted
-                        {{ $thread->title }}
+                            <a href="/profiles/{{ $thread->creator->name }}">{{ $thread->creator->name }}</a> posted
+                            {{ $thread->title }}
                         </span>
+
+                        @can('update', $thread)
+
                         <form action="{{ $thread->path() }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+
+                        @endcan
                     </div>
                 </div>
 
@@ -34,14 +40,14 @@
             {{ $replies->links() }}
 
             @if (auth()->check())
-                    <form action="{{ $thread->path() . '/replies'}}" method="post">
-                        @csrf
-                        <div class="form-group">
-                            <textarea id="body" class="form-control " style="margin-bottom: 20px;" type="text"
-                                name="body" placeholder="Have something to say?" rows="5"></textarea>
-                            <button class="btn btn-default" type="submit">Post</button>
-                        </div>
-                    </form>
+            <form action="{{ $thread->path() . '/replies'}}" method="post">
+                @csrf
+                <div class="form-group">
+                    <textarea id="body" class="form-control " style="margin-bottom: 20px;" type="text" name="body"
+                        placeholder="Have something to say?" rows="5"></textarea>
+                    <button class="btn btn-default" type="submit">Post</button>
+                </div>
+            </form>
             @else
 
             <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to post!</p>
@@ -54,8 +60,8 @@
 
                 <div class="card-body">
                     <p class="card-text">
-                        This thread was published {{ $thread->created_at->diffForHumans() }} by 
-                        <a href="#">{{ $thread->creator->name }}</a>, and currently has 
+                        This thread was published {{ $thread->created_at->diffForHumans() }} by
+                        <a href="#">{{ $thread->creator->name }}</a>, and currently has
                         {{ $thread->replies_count }} {{ str_plural('comment', $thread->replies_count) }}
                     </p>
                 </div>
